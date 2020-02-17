@@ -5,24 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="StoreDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="productID" />
-          </Key>
-          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="productName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="price" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'StoreDB.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="userID" />
-            <PropertyRef Name="email" />
-            <PropertyRef Name="psword" />
-            <PropertyRef Name="firstName" />
-            <PropertyRef Name="lastName" />
-            <PropertyRef Name="role" />
           </Key>
           <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
@@ -32,49 +17,25 @@ warning 6002: The table/view 'StoreDB.dbo.Users' does not have a primary key def
           <Property Name="role" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="StoreDataModelStoreContainer">
-          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Users].[userID] AS [userID], 
-    [Users].[email] AS [email], 
-    [Users].[psword] AS [psword], 
-    [Users].[firstName] AS [firstName], 
-    [Users].[lastName] AS [lastName], 
-    [Users].[role] AS [role]
-    FROM [dbo].[Users] AS [Users]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StoreDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="StoreDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="StoreDataModel.Users" />
+        </EntityContainer>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="userID" />
-            <PropertyRef Name="email" />
-            <PropertyRef Name="psword" />
-            <PropertyRef Name="firstName" />
-            <PropertyRef Name="lastName" />
-            <PropertyRef Name="role" />
           </Key>
           <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="psword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="psword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityContainer Name="StoreDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="Product" EntityType="StoreDataModel.Product" />
-        </EntityContainer>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="productID" />
-          </Key>
-          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="productName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -85,21 +46,12 @@ warning 6002: The table/view 'StoreDB.dbo.Users' does not have a primary key def
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="StoreDataModel.Users">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="psword" ColumnName="psword" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="role" ColumnName="role" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="StoreDataModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="productName" ColumnName="productName" />
-                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="psword" ColumnName="psword" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
